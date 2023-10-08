@@ -108,11 +108,13 @@ def url_to_path(url: str, doc_root: str) -> str:
     if '../' in url:
         raise Forbidden
     path = url.split('?')[0].split("#")[0]
-    if os.path.isdir(path):
-        path = os.path.abspath(os.path.join(path, 'index.html'))
-    if path.endswith('/'):
-        path = path + 'index.html'
     path = urllib.parse.unquote(path)
+    if os.path.isdir(f"{doc_root}/{path}"):
+        if not path.endswith("/"):
+            path += "/"
+        path = os.path.join(path, "index.html")
+    elif not os.path.isfile(f"{doc_root}/{path}"):
+        raise NotFound
     return path
 
 
@@ -139,6 +141,8 @@ def build_response(request: str, doc_root: str) -> bytes:
                 code = NOT_FOUND
         except Forbidden:
             code = FORBIDDEN
+        except NotFound:
+            code = NOT_FOUND
     except MethodNotAllowed:
         code = METHOD_NOT_ALLOWED
     except BadRequest:
