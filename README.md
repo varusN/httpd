@@ -18,7 +18,7 @@ python3 httpd.py -h
 
 # Run tests:
 ```
-python.exe httptest.py
+python3 httptest.py
 ```
 # Bench mark by ApacheBench:
 ```
