@@ -1,7 +1,7 @@
 # Simple HTTP Server
 
 HTTP server with GET and HEAD methods supported.
-Server runs several listening processes on configured port based on multiprocessing scheme.
+Server runs several listening processes based on multiprocessing scheme.
 
 # Requirements:
 
